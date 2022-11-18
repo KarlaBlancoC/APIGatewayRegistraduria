@@ -103,16 +103,18 @@ def crear_partido():
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/partido"
     info_partido = request.get_json()
-    response = requests.post(url, json = info_partido)
+    response = requests.post(url, json=info_partido)
     return jsonify(response.json())
+
 
 @app.route("/partido/<string:id>", methods=["PUT"])
 def actualizar_partido(id):
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/partido/" + id
     info_partido = request.get_json()
-    response = requests.put(url, json = info_partido)
+    response = requests.put(url, json=info_partido)
     return jsonify(response.json())
+
 
 @app.route("/partido/<string:id>", methods=["DELETE"])
 def eliminar_partido(id):
@@ -144,16 +146,18 @@ def crear_mesa():
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/mesa"
     info_mesa = request.get_json()
-    response = requests.post(url, json = info_mesa)
+    response = requests.post(url, json=info_mesa)
     return jsonify(response.json())
+
 
 @app.route("/mesa/<string:id>", methods=["PUT"])
 def actualizar_mesa(id):
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/mesa/" + id
     info_mesa = request.get_json()
-    response = requests.put(url, json = info_mesa)
+    response = requests.put(url, json=info_mesa)
     return jsonify(response.json())
+
 
 @app.route("/mesa/<string:id>", methods=["DELETE"])
 def eliminar_mesa(id):
@@ -185,16 +189,18 @@ def crear_candidato():
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/candidato"
     info_candidato = request.get_json()
-    response = requests.post(url, json = info_candidato)
+    response = requests.post(url, json=info_candidato)
     return jsonify(response.json())
+
 
 @app.route("/candidato/<string:id>", methods=["PUT"])
 def actualizar_candidato(id):
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/candidato/" + id
     info_candidato = request.get_json()
-    response = requests.put(url, json = info_candidato)
+    response = requests.put(url, json=info_candidato)
     return jsonify(response.json())
+
 
 @app.route("/candidato/<string:id>", methods=["DELETE"])
 def eliminar_candidato(id):
@@ -226,16 +232,18 @@ def crear_resultado():
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/resultado"
     info_resultado = request.get_json()
-    response = requests.post(url, json = info_resultado)
+    response = requests.post(url, json=info_resultado)
     return jsonify(response.json())
+
 
 @app.route("/resultado/<string:id>", methods=["PUT"])
 def actualizar_resultado(id):
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/resultado/" + id
     info_resultado = request.get_json()
-    response = requests.put(url, json = info_resultado)
+    response = requests.put(url, json=info_resultado)
     return jsonify(response.json())
+
 
 @app.route("/resultado/<string:id>", methods=["DELETE"])
 def eliminar_resultado(id):
@@ -243,6 +251,180 @@ def eliminar_resultado(id):
     url = config_data["url-backend-registraduria"] + "/resultado/" + id
     response = requests.delete(url)
     return jsonify(response.json())
+
+
+# Servicios para USUARIOS
+
+@app.route("/usuarios", methods=["GET"])
+def listar_usuarios():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/usuarios"
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/usuarios/<string:id>", methods=["GET"])
+def mostrar_usuario(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/usuarios/" + id
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/usuarios", methods=["POST"])
+def crear_usuario():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/usuarios"
+    info_usuario = request.get_json()
+    response = requests.post(url, json=info_usuario)
+    return jsonify(response.json()), 200
+
+
+@app.route("/usuarios/<string:id>", methods=["PUT"])
+def actualizar_usuario(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/usuarios/" + id
+    info_usuario = request.get_json()
+    response = requests.put(url, json=info_usuario)
+    return jsonify(response.json()), 200
+
+
+@app.route("/usuarios/<string:id>", methods=["DELETE"])
+def eliminar_usuario(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/usuarios/" + id
+    response = requests.delete(url)
+    return jsonify(response.json()), 200
+
+
+# Servicios para ROLES
+
+@app.route("/roles", methods=["GET"])
+def listar_roles():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/roles"
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/roles/<string:id>", methods=["GET"])
+def mostrar_rol(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/roles/" + id
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/roles", methods=["POST"])
+def crear_rol():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/roles"
+    info_rol = request.get_json()
+    response = requests.post(url, json=info_rol)
+    return jsonify(response.json()), 200
+
+
+@app.route("/roles/<string:id>", methods=["PUT"])
+def actualizar_rol(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/roles/" + id
+    info_rol = request.get_json()
+    response = requests.put(url, json=info_rol)
+    return jsonify(response.json()), 200
+
+
+@app.route("/roles/<string:id>", methods=["DELETE"])
+def eliminar_rol(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/roles/" + id
+    response = requests.delete(url)
+    return jsonify(response.json()), 200
+
+# Servicios para PERMISOS
+
+@app.route("/permisos", methods=["GET"])
+def listar_permisos():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos"
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos/<string:id>", methods=["GET"])
+def mostrar_permiso(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos/" + id
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos", methods=["POST"])
+def crear_permiso():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos"
+    info_permiso = request.get_json()
+    response = requests.post(url, json=info_permiso)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos/<string:id>", methods=["PUT"])
+def actualizar_permiso(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos/" + id
+    info_permiso = request.get_json()
+    response = requests.put(url, json=info_permiso)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos/<string:id>", methods=["DELETE"])
+def eliminar_permiso(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos/" + id
+    response = requests.delete(url)
+    return jsonify(response.json()), 200
+
+# Servicios para PERMISOS-ROLES
+
+@app.route("/permisos-roles", methods=["GET"])
+def listar_permisos_roles():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos-roles"
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos-roles/<string:id>", methods=["GET"])
+def mostrar_permiso_rol(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos-roles/" + id
+    response = requests.get(url)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos-roles", methods=["POST"])
+def crear_permiso_rol():
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos-roles"
+    info_permiso_rol = request.get_json()
+    response = requests.post(url, json=info_permiso_rol)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos-roles/<string:id>", methods=["PUT"])
+def actualizar_permiso_rol(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos-roles/" + id
+    info_permiso_rol = request.get_json()
+    response = requests.put(url, json=info_permiso_rol)
+    return jsonify(response.json()), 200
+
+
+@app.route("/permisos-roles/<string:id>", methods=["DELETE"])
+def eliminar_permiso_rol(id):
+    config_data = load_file_config()
+    url = config_data["url-backend-security"] + "/permisos-roles/" + id
+    response = requests.delete(url)
+    return jsonify(response.json()), 200
 
 
 if __name__ == '__main__':

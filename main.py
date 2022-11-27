@@ -28,7 +28,7 @@ def load_file_config():
 def before_request_callback():
     url = limpiar_url(request.path)
     excluded_routes = ["/login"]
-    if url in excluded_routes:
+    if url in excluded_routes or request.method.upper() == "OPTIONS":
         print("Ruta Excluida del middleware", url)
     else:
         if verify_jwt_in_request():
@@ -36,10 +36,16 @@ def before_request_callback():
             rol = usuario["rol"]
             if rol is not None:
                 if not validar_permiso(url, request.method.upper(), rol["_id"]):
+                    print("1")
+                    print(rol["_id"])
+                    print(url)
+                    print(request.method.upper())
                     return jsonify({"message": "Permission denied"}), 401
             else:
+                print("2")
                 return jsonify({"message": "Permission denied"}), 401
         else:
+            print("3")
             return jsonify({"message": "Permission denied"}), 401
 
 
@@ -186,9 +192,11 @@ def mostrar_candidato(id):
 
 @app.route("/candidato", methods=["POST"])
 def crear_candidato():
+    print("aqui")
     config_data = load_file_config()
     url = config_data["url-backend-registraduria"] + "/candidato"
     info_candidato = request.get_json()
+
     response = requests.post(url, json=info_candidato)
     return jsonify(response.json())
 
@@ -426,6 +434,21 @@ def eliminar_permiso_rol(id):
     response = requests.delete(url)
     return jsonify(response.json()), 200
 
+@app.route("/partido/query", methods=["POST"])
+def mostrar_partido_nombre():
+    config_data = load_file_config()
+    url = config_data["url-backend-registraduria"] + "/partido/query"
+    info_partido = request.get_json()
+    response = requests.post(url, json=info_partido)
+    return jsonify(response.json()), 200
+
+@app.route("/candidato/query", methods=["POST"])
+def mostrar_candidato_query():
+    config_data = load_file_config()
+    url = config_data["url-backend-registraduria"] + "/candidato/query"
+    info_candidato = request.get_json()
+    response = requests.post(url, json=info_candidato)
+    return jsonify(response.json()), 200
 
 if __name__ == '__main__':
     data_config = load_file_config()
